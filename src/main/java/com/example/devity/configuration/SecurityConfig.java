@@ -36,7 +36,7 @@ public class SecurityConfig {
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     return http.csrf().disable()
         .authorizeHttpRequests()
-        .requestMatchers("/devity/auth/generateToken", "/devity/books/**").permitAll()
+        .requestMatchers("/auth/generateToken", "/books/**").permitAll()
         .and()
         .sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
