@@ -10,7 +10,6 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,19 +35,11 @@ public class SecurityConfig {
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     return http.csrf().disable()
         .authorizeHttpRequests()
-        .requestMatchers("/auth/generateToken", "/books/**").permitAll()
-        .and()
-        .sessionManagement()
-        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .requestMatchers("/auth/generateToken", "/auth/addNewUser", "/books/**").permitAll()
         .and()
         .authenticationProvider(authenticationProvider())
         .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
         .build();
-    //    return http
-    //        .authorizeRequests(authorize -> authorize
-    //            .requestMatchers("/devity/auth/generateToken", "/devity/books/**").permitAll()
-    //            .anyRequest().authenticated())
-    //        .build();
   }
 
   @Bean

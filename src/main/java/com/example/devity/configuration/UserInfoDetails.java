@@ -44,10 +44,7 @@ public class UserInfoDetails implements UserDetails {
 
   @Override
   public boolean isAccountNonLocked() {
-    if (Objects.equals(name, BLOCKED_USER_NAME)) {
-      return false;
-    }
-    return true;
+    return !Objects.equals(name, BLOCKED_USER_NAME);
   }
 
   @Override
